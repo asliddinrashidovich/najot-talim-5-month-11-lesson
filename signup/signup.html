@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+      <section class="text-gray-600  h-[100vh] flex justify-between overflow-hidden">
+          <div class=" bg-white w-[50%] justify-center hidden md:flex items-center">
+            <img src="https://img.freepik.com/free-vector/sign-up-concept-illustration_114360-7875.jpg?t=st=1741167755~exp=1741171355~hmac=8dd3661518aff3e68347a0a605340b1902d32c8d7ee86f052be6788720021edb&w=900" class="w-[70%]" alt="">
+          </div>
+          <div class="px-5 py-24 mx-auto w-full md:w-[50%]  flex justify-center items-center bg-gray-300">
+            <form id="signup_form" class="w-[400px] bg-white p-5 rounded-[10px] text-center">
+              <h2 class="text-gray-900 text-[30px] text-center mb-1 font-bold title-font">Sign up</h2>
+              <p class="text-center mb-5  text-gray-600">Create a new account for free</p>
+              <div class="relative mb-4 text-start">
+                <label for="name" class="leading-7 text-sm text-gray-600">Full Name:</label>
+                <input placeholder="Asliddin Norboyev" type="text" id="name" name="name" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                <span class="text-[12px] text-red-600 hidden" id="message_name">Please enter your full name</span>
+              </div>
+              <div class="relative mb-4 text-start">
+                <label for="email" class="leading-7 text-sm text-gray-600">Email:</label>
+                <input placeholder="user@example.com" type="email" id="email" name="email" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                <span class="text-[12px] text-red-600 hidden" id="message_email">Please enter your email</span>
+              </div>
+              <div class="relative mb-4 text-start">
+                <label for="password" class="leading-7 text-sm text-gray-600">Password:</label>
+                <input type="password" id="password" name="password" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                <span class="text-[12px] text-red-600 hidden" id="message_password">Please enter your password</span>
+              </div>
+              <button type="submit" class="cursor-pointer text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded  text-lg">Sign up</button>
+              <p class=" text-gray-500 mt-3 text-center mb-5 mt-3">Already have an account? <a href="/signin/signin.html"  class="font-semibold text-blue-500 cursor-pointer">Log in</a></p>
+            </form>
+          </div>
+      </section>
+      <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+      <script>
+        const signUpForm = document.getElementById('signup_form');
+        const messageName = document.getElementById('message_name');
+        const messageEmail = document.getElementById('message_email');
+        const messagePassword = document.getElementById('message_password');
+
+
+          signUpForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            let nameInput = signUpForm.name;
+            let emailInput = signUpForm.email;
+            let passwordInput = signUpForm.password;
+
+            if(!nameInput.value.trim().length) {
+              messageName.classList.remove('hidden');
+              nameInput.classList.add('border-red-600');
+              setTimeout(() => {
+                messageName.classList.add('hidden');
+                nameInput.classList.remove('border-red-600')
+              }, 3000)
+            }
+            if(!emailInput.value.trim().length) {
+              messageEmail.classList.remove('hidden');
+              emailInput.classList.add('border-red-600');
+              setTimeout(() => {
+                messageEmail.classList.add('hidden');
+                emailInput.classList.remove('border-red-600')
+              }, 3000)
+            }
+            if(!passwordInput.value.trim().length) {
+              messagePassword.classList.remove('hidden');
+              passwordInput.classList.add('border-red-600');
+              setTimeout(() => {
+                messagePassword.classList.add('hidden');
+                passwordInput.classList.remove('border-red-600')
+              }, 3000)
+            }
+            if(nameInput.value.trim().length && emailInput.value.trim().length && passwordInput.value.trim().length) {
+              let userInfo = {
+                name: nameInput.value,
+                email: emailInput.value,
+                password: passwordInput.value,
+              }
+              localStorage.setItem('user', JSON.stringify(userInfo))
+              window.location.href = '/profile/profile.html'
+              signUpForm.reset()
+            }
+
+          })
+      </script>
+  </body>
+  </html>

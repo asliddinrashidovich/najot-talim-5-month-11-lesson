@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+  </head>
+  <body class="bg-gray-300 h-[100vh]">
+    <header class="py-5 bg-gray-600 px-8">
+        <div class=" flex justify-between items-center text-white">
+            <a href="/index.html" class="nav_logo grid">
+                <img src="./Assets/Images/logo.png" alt="" />
+                <span>BOOKSHOP</span>
+            </a>
+            <button id="out" class="px-4 py-1 rounded-full bg-blue-500 cursor-pointer">Log out</button>
+        </div>
+    </header>
+    <main class="flex md:flex-row flex-col gap-[30px] px-8">
+        <div class="bg-gray-600 h-full w-full md:w-[40%] my-[20px] p-8 rounded-[10px]">
+            <img src="https://cdn-icons-png.flaticon.com/512/219/219986.png" alt="">
+        </div>
+        <div class="bg-gray-600 h-full text-white w-full md:w-[60%] my-[20px] p-8 rounded-[10px]">
+            <h2 class="text-[30px] mb-3">About</h2>
+            <form class="flex flex-col gap-[20px]">
+                <label for="name">
+                    <span class="text-[20px] text-gray-400">Full name:</span><br>
+                    <input class="nameEdit" type="text" value="Unkown">
+                </label>
+                <label for="email">
+                    <span class="text-[20px] text-gray-400">Email:</span><br>
+                    <input class="emailEdit w-[400px]" type="email" value="Unkown">
+                </label>
+                <label for="password">
+                    <span class="text-[20px] text-gray-400">Password:</span><br>
+                    <input class="passwordEdit" type="text" value="Unkown">
+                </label>
+                <button type="submit" class="cursor-pointer text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded  text-lg">Change details</button>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        const data = JSON.parse(localStorage.getItem('user'));
+        const formEdit = document.querySelector('form');
+        const logOut = document.querySelector('#out');
+
+        let nameInput = document.querySelector('.nameEdit');
+        let emailInput = document.querySelector('.emailEdit');
+        let passwordInput = document.querySelector('.passwordEdit');
+
+        nameInput.value = data.name;
+        emailInput.value = data.email;
+        passwordInput.value = data.password;
+
+        formEdit.addEventListener('submit', (e) => {
+            e.preventDefault()
+            let userInfo = {
+                name: nameInput.value,
+                email: emailInput.value,
+                password: passwordInput.value,
+            }
+            localStorage.setItem('user', JSON.stringify(userInfo))
+            window.location.href = '/profile/profile.html'
+            // signUpForm.reset()
+            alert("Malumotlar muvafaqiyatli o'zgartirildi")
+        })
+
+        logOut.addEventListener('click', () => {
+            localStorage.clear();
+            window.location.href = '/index.html'
+        })
+    </script>
+  </body>
+</html>
